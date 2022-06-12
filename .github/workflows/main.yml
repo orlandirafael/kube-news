@@ -10,7 +10,6 @@ on:
 jobs:
   CI:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
@@ -29,3 +28,22 @@ jobs:
           tags: |
             orlandirafael/kube-news:latest
             orlandirafael/kube-news:${{github.run_number}}
+            
+  CD:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+  
+      - name: Kubernetes Set Context
+        uses: Azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          kubeconfig: $${{secrets.K8S_CONFIG}}
+
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v3.1
+        with:
+          images: orlandirafael/kube-news:${{github.run_number}}
+          manifests: |
+            k8s/deployment.yaml
