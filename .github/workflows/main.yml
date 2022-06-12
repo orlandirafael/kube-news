@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
       - uses: actions/checkout@v3
 
       - name: Docker Login
@@ -24,8 +23,8 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3.0.0
         with:
-          context: ./src
           file: ./src/Dockerfile
+          context: ./src
           push: true
           tags: |
             orlandirafael/kube-news:latest
