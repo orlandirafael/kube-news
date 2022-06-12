@@ -26,8 +26,8 @@ jobs:
           context: ./src
           push: true
           tags: |
-            orlandirafael/kube-news:latest
             orlandirafael/kube-news:${{github.run_number}}
+            orlandirafael/kube-news:latest
             
   CD:
     runs-on: ubuntu-latest
@@ -45,5 +45,6 @@ jobs:
         uses: Azure/k8s-deploy@v3.1
         with:
           images: orlandirafael/kube-news:${{github.run_number}}
+          context: ./src
           manifests: |
             k8s/deployment.yaml
