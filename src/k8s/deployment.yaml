@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
       - name: kube-news
-        image: orlandirafael/kube-news:v1
+        image: orlandirafael/kube-news:12
         env:
           - name: DB_USERNAME
             value: kube-news
